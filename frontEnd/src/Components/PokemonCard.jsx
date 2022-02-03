@@ -1,13 +1,34 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Pokeball from "../assets/5a38400bb45730.3526330915136358517387.png";
 
-const PokemonCard = ({ name, url }) => {
+const PokemonCard = ({ name, url, user, setUser }) => {
   const [data, setData] = useState([]);
+  const [isCatched, setIsCatched] = useState(false);
 
   const fetchPokemon = async () => {
     const pokeData = (await axios({ url })).data;
     setData(pokeData);
-    console.log(pokeData);
+  };
+
+  const iCatchedIt = async () => {
+    await axios.post("http://localhost:3001/catchPokemon", {
+      userId: user.id,
+      pokeId: data.id,
+    });
+  };
+
+  const fetchUser = async () => {
+    const result = (
+      await axios.post("http://localhost:3001/me", { id: user.id })
+    ).data;
+    setUser(result);
+  };
+
+  const CatchThemAll = async () => {
+    setIsCatched(!isCatched);
+    await iCatchedIt();
+    await fetchUser();
   };
 
   useEffect(() => {
@@ -15,16 +36,29 @@ const PokemonCard = ({ name, url }) => {
   }, []);
 
   return (
-    <div>
+    <div onClick={CatchThemAll}>
       {data.stats && (
         <figure className={`card card--${data.types[0].type.name}`}>
-          <div className="card__image-container">
-            <img
-              src={data && data.sprites.front_default}
-              alt="Eevee"
-              className="card__image pokeimg "
-            />
-          </div>
+          {user.pokemon.some(function (item) {
+            return item.pokeId === data.id;
+          }) ? (
+            <div className="card__image-container flex">
+              <img className="h-5 w-5 absolute" src={Pokeball} />
+              <img
+                src={data && data.sprites.front_default}
+                alt={name}
+                className="card__image pokeimg "
+              />
+            </div>
+          ) : (
+            <div className="card__image-container">
+              <img
+                src={data && data.sprites.front_default}
+                alt={name}
+                className="card__image pokeimg "
+              />
+            </div>
+          )}
 
           <figcaption className="card__caption">
             <h1 className="card__name">{name}</h1>
