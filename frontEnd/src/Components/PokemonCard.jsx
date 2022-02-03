@@ -39,7 +39,7 @@ const PokemonCard = ({ name, url, user, setUser }) => {
     <div onClick={CatchThemAll}>
       {data.stats && (
         <figure className={`card card--${data.types[0].type.name}`}>
-          {user.pokemon.some(function (item) {
+          {user && user.pokemon.some(function (item) {
             return item.pokeId === data.id;
           }) ? (
             <div className="card__image-container flex">
