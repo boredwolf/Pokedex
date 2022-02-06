@@ -3,18 +3,18 @@ import Pokeball from "../assets/5a38400bb45730.3526330915136358517387.png";
 import EspaceDresseurPokemon from "./EspaceDresseurPokemon";
 const EspaceDresseur = ({ user }) => {
   return (
-    <div className="container mx-auto my-40">
+    <div className="container mx-auto my-40 ">
       <div>
-        <div className="bg-white relative shadow-xl w-5/6 md:w-4/6  lg:w-4/6 xl:w-4/6 mx-auto">
-          <div className="flex justify-center">
+        <div className="bg-white relative shadow-xl w-5/6 md:w-4/6  lg:w-4/6 xl:w-4/6 mx-auto border-2 border-black">
+          <div className="flex justify-center  ">
             <img
               src={Pokeball}
               alt=""
-              className="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-2xl border-4 border-white"
+              className="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-2xl"
             />
           </div>
 
-          <div className="mt-16">
+          <div className="mt-16 ">
             <h1 className="font-bold text-center text-3xl text-gray-900 font-sigmar ">
               {user && user.username}
             </h1>

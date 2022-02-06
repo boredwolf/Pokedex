@@ -1,11 +1,12 @@
+require("dotenv").config();
+
 const express = require("express");
 const app = express();
 const port = 3001;
 const db = require("./db");
 const cors = require("cors");
 const session = require("express-session");
-const { cpSync } = require("fs");
-const { createJsxClosingElement } = require("typescript");
+
 
 app.use(
   cors({
@@ -114,21 +115,21 @@ app.post("/catchPokemon", async (req, res) => {
   }
 });
 
-app.post("/me", async(req,res) => {
-  const {id} = req.body
+app.post("/me", async (req, res) => {
+  const { id } = req.body;
   try {
-   const user = await db.user.findUnique({
-     where:{
-       id : parseInt(id)
-     }, include:{
-       pokemon: true
-     }
-   })
-   console.log(user)
-   res.status(201).send(user)
+    const user = await db.user.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+      include: {
+        pokemon: true,
+      },
+    });
+    console.log(user);
+    res.status(201).send(user);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send("not found");
   }
-  catch(e){
-    console.log(e)
-    res.status(500).send('not found')
-  }
-})
+});

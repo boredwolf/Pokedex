@@ -16,7 +16,7 @@ const EspaceDresseurPokemon = ({ id, user }) => {
   return (
     <a
       href="#"
-      className="w-full border-t-2 border-gray-100 font-medium text-gray-600 py-4 px-4 w-full block hover:bg-gray-100 transition duration-150"
+      className="w-full border-t-2  font-medium text-gray-600 py-4 px-4 w-full block hover:bg-gray-100 transition duration-150"
     >
       <img
         src={ data.sprites && data.sprites.front_default}

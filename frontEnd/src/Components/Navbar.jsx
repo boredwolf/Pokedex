@@ -8,9 +8,11 @@ const Navbar = ({ user, setUser }) => {
     setUser();
   };
   return (
-    <div className="bg-red-600">
-      <ul className="flex p-2 items-center text-white justify-between font-sigmar mb-10">
-        <img className="h-10 w-15" src={pokeLogo}></img>
+    <div className="bg-red-600 text-xs sm:text-base border-2 border-black">
+      <ul className="flex p-2 items-center flex-col text-white items-center content-center font-sigmar sm:justify-between sm:flex-row min-h-fit">
+        <Link to="/">
+          <img className="h-10 w-15" src={pokeLogo}></img>
+        </Link>
         <Link to="/">
           <li className="hover:text-black">Pokédex</li>
         </Link>
