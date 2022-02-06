@@ -8,8 +8,8 @@ const Navbar = ({ user, setUser }) => {
     setUser();
   };
   return (
-    <div className="bg-red-600 text-xs sm:text-base border-2 border-black">
-      <ul className="flex p-2 items-center flex-col text-white items-center content-center font-sigmar sm:justify-between sm:flex-row min-h-fit">
+    <div className="bg-red-600 text-xs md:text-xl border-2 border-black">
+      <ul className="flex p-2 items-center flex-col text-white items-center content-center font-sigmar sm:justify-between md:flex-row ">
         <Link to="/">
           <img className="h-10 w-15" src={pokeLogo}></img>
         </Link>
