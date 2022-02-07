@@ -22,6 +22,7 @@ const PokemonCard = ({ name, url, user, setUser }) => {
     const result = (
       await axios.post("http://localhost:3001/me", { id: user.id })
     ).data;
+
     setUser(result);
   };
 

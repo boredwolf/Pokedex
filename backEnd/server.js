@@ -7,7 +7,6 @@ const db = require("./db");
 const cors = require("cors");
 const session = require("express-session");
 
-
 app.use(
   cors({
     origin: "http://localhost:3000",
@@ -70,11 +69,14 @@ app.post("/login", async (req, res) => {
         pokemon: true,
       },
     });
-    console.log(user);
+
     if (!user) {
       return res.status(401).send("wrong credentials");
     }
-    console.log(req.session.user, user);
+    
+    // Stock le user en session
+    req.session.user = user;
+
     res.status(200).send(user);
   } catch (e) {
     console.log(e);
@@ -88,6 +90,7 @@ app.get("/logout", async (req, res) => {
 
 app.post("/catchPokemon", async (req, res) => {
   const { pokeId, userId } = req.body;
+
   try {
     const result = await db.userPokemon.findFirst({
       where: {
@@ -95,6 +98,7 @@ app.post("/catchPokemon", async (req, res) => {
         pokeId: pokeId,
       },
     });
+
     if (!result) {
       await db.userPokemon.create({
         data: {
@@ -102,8 +106,10 @@ app.post("/catchPokemon", async (req, res) => {
           pokeId: pokeId,
         },
       });
+
       return res.status(201).send("created");
     }
+
     res.status(200).send("already caught !");
   } catch (e) {
     res.status(500).send("error");
@@ -111,8 +117,17 @@ app.post("/catchPokemon", async (req, res) => {
   }
 });
 
+app.get('/me', (req, res) => {
+  try {
+    res.send(req.session.user);
+  } catch (e) {
+    res.status(401).send('unauthorized');
+  }
+})
+
 app.post("/me", async (req, res) => {
   const { id } = req.body;
+
   try {
    const user = await db.user.findUnique({
      where:{
