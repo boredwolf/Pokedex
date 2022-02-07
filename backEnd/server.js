@@ -29,10 +29,6 @@ app.use(
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
@@ -78,10 +74,10 @@ app.post("/login", async (req, res) => {
       return res.status(401).send("wrong credentials");
     }
     console.log(req.session.user, user);
-    res.status(201).send(user);
+    res.status(200).send(user);
   } catch (e) {
     console.log(e);
-    res.status(500).send("wrong credentials");
+    res.status(401).send("wrong credentials");
   }
 });
 
@@ -125,7 +121,7 @@ app.post("/me", async(req,res) => {
      }
    })
    console.log(user)
-   res.status(201).send(user)
+   res.status(200).send(user)
   }
   catch(e){
     console.log(e)
