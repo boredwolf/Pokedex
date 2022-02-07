@@ -28,7 +28,7 @@ const LoginForm = ({setUser, user}) => {
       }
 
     return (
-        <div className="flex items-center justify-center  bg-gray-100">
+        <div className="flex items-center justify-center ">
     <div className="px-8 py-6 mt-2 text-left bg-white shadow-lg md:w-2/3 lg:w-2/3 sm:w-2/3">
         <h3 className="text-2xl font-bold text-center">Login to your account</h3>
         <form onSubmit={handleSubmit(onSubmit)}>
