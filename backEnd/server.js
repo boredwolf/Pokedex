@@ -73,7 +73,7 @@ app.post("/login", async (req, res) => {
     if (!user) {
       return res.status(401).send("wrong credentials");
     }
-    
+
     // Stock le user en session
     req.session.user = user;
 
@@ -117,30 +117,30 @@ app.post("/catchPokemon", async (req, res) => {
   }
 });
 
-app.get('/me', (req, res) => {
+app.get("/me", (req, res) => {
   try {
-    res.send(req.session.user);
+    res.send(await db.user.findUnique({ where: { id: req.session.user.id } }));
   } catch (e) {
-    res.status(401).send('unauthorized');
+    res.status(401).send("unauthorized");
   }
-})
+});
 
 app.post("/me", async (req, res) => {
   const { id } = req.body;
 
   try {
-   const user = await db.user.findUnique({
-     where:{
-       id : parseInt(id)
-     }, include:{
-       pokemon: true
-     }
-   })
-   console.log(user)
-   res.status(200).send(user)
-  }
-  catch(e){
-    console.log(e)
-    res.status(500).send('not found')
+    const user = await db.user.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+      include: {
+        pokemon: true,
+      },
+    });
+    console.log(user);
+    res.status(200).send(user);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send("not found");
   }
 });
